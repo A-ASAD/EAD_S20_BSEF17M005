@@ -28,7 +28,6 @@
         $result = mysqli_query($conn, $query);
         if(mysqli_num_rows($result)){
             $result = mysqli_fetch_assoc($result);
-            $out["name"]=$result["name"];
             $_SESSION["user"] = $result["name"];
             echo "Success";
         }

@@ -31,10 +31,10 @@
 <?php
 session_start();
 if (!$_SESSION["user"])
-    header("Location: Login.html");
+    header("Location: Login.php");
 if (isset($_REQUEST["Logout"])) {
     session_destroy();
-    header("Location: Login.html");
+    header("Location: Login.php");
 }
     $pwd = 0;
     if(isset($_REQUEST["id"]))
@@ -52,7 +52,7 @@ if (isset($_REQUEST["Logout"])) {
         </div>
     </div>
 
-    <div class="modal fade" id="nF">
+    <div class="modal fade" id="nF"> <!--Modal for creating new folder name-->
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,7 +99,7 @@ if (isset($_REQUEST["Logout"])) {
                     $("#main").html("<div class='text-center pt-4'><b>Folder is Empty!</b></div>");
             });
 
-            $("#newFolder").click(function(){
+            $("#newFolder").click(function(){ //To Add a new Folder
                 let folderName=$("#fName").val();
                 if(folderName != ""){
                     $.post("DB_API.php", "parent="+<?php echo $pwd;?>+"&name="+folderName+"&action=addFolder", function(data, status) {
@@ -131,7 +131,7 @@ if (isset($_REQUEST["Logout"])) {
                 $("#errMsg").text("");
             });
         });
-        let clicks = 0;
+        let clicks = 0; // controlling click & dbclick events
         function clickHandler(id) {
             clicks++;
             if (clicks == 1) {
