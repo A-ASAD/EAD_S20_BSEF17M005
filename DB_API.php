@@ -5,7 +5,7 @@
 
     if($_REQUEST["action"] == "addFolder"){        //Add Folder
         $query = "insert into folders(name, parent_id) select '".$_REQUEST["name"]."', ".$_REQUEST["parent"].
-        " where ( select name from folders where name = '".$_REQUEST["name"]."' and parent_id = '".$_REQUEST["parent"]."') is null";
+        " where ( select name from folders where lower(name) = lower('".$_REQUEST["name"]."') and parent_id = '".$_REQUEST["parent"]."') is null";
         $result = mysqli_query($conn, $query);
         if(mysqli_affected_rows($conn))
             echo mysqli_insert_id($conn);
@@ -37,7 +37,7 @@
     else if($_REQUEST["action"] == "signUp"){           //Sign Up
         session_start();
         $query = "insert into user select '".$_REQUEST["login"]."','".$_REQUEST["pass"]."','".$_REQUEST["name"].
-        "' where (select login from user where login = '".$_REQUEST["login"]."') is null";
+        "' where (select login from user where lower(login) = lower('".$_REQUEST["login"]."')) is null";
         $result = mysqli_query($conn, $query);
         if(mysqli_affected_rows($conn))
             echo "Success";

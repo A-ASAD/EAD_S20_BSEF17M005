@@ -16,6 +16,7 @@
         #loginCard{
             position: absolute;
             top:15%;
+            margin-bottom: 2%;
         }
     </style>
 </head>
@@ -39,12 +40,12 @@
                                 <div class="form-group">
                                     <i class="fa fa-user fa-2x mr-1"></i>
                                     <label for="nam">Name:</label>
-                                    <input type="text" class="form-control" placeholder="Enter User Name" id="nam">
+                                    <input type="text" class="form-control" placeholder="Enter Name" id="nam">
                                 </div>
                                 <div class="form-group">
                                     <i class="fa fa-envelope fa-lg mr-1"></i>
                                     <label for="lgn">Login:</label>
-                                    <input type="email" class="form-control" placeholder="Enter Email" id="lgn">
+                                    <input type="email" class="form-control" placeholder="Enter Login" id="lgn">
                                 </div>
                                 <div class="form-group">
                                     <i class="fa fa-lock fa-2x mr-1"></i>
@@ -64,7 +65,7 @@
                                 <div class="form-group">
                                     <i class="fa fa-user fa-2x mr-1"></i>
                                     <label for="lLgn">Login:</label>
-                                    <input type="text" class="form-control" placeholder="Enter User Name" id="lLgn" autofocus>
+                                    <input type="text" class="form-control" placeholder="Enter Login" id="lLgn" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <i class="fa fa-lock fa-2x mr-1"></i>
@@ -89,6 +90,8 @@
 	<script>
 		function displaySignUp(temp){
 			if(temp){
+                $("#lLgn").val("");
+                $("#lPass").val("");
 				$("#su").slideToggle(700);
 				$("#lg").slideToggle(700);
 				$("#lgBtn").text("Sign Up");
@@ -96,6 +99,10 @@
 				$("#message").html("Login<span onclick='displaySignUp(0)' class='text-light' style='cursor: pointer;'> here!</span></div>");
 			}
 			else{
+                $("#lgn").val("");
+                $("#pass").val("");
+                $("#nam").val("");
+                $("#confirmPass").val("");
 				$("#su").slideToggle(700);
 				$("#lg").slideToggle(700);
 				$("#lgBtn").text("Login");
@@ -139,9 +146,6 @@
                         }
                         else{
                             $("#lgn").val("");
-                            $("#pass").val("");
-                            $("#nam").val("");
-                            $("#confirmPass").val("");
                             $("#errMsg").text("Error!! Login already exists!");
                         }
                     });
@@ -151,6 +155,10 @@
                 }
             }
             return false;
+        });
+
+        $("#nam, #lgn, #pass, #confirmPass, #lPass, #lLgn").on("input", function(){
+            $("#errMsg").text("");
         });
 	</script>
 	

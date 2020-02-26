@@ -122,12 +122,16 @@ if (isset($_REQUEST["Logout"])) {
                     });
                 }
                 else
-                $("#errMsg").text("Invalid Folder Name Entered!");
+                    $("#errMsg").text("Invalid Folder Name Entered!");
                 return false;
             });
 
             $("#modalBtn").click(function(){
                 $("#fName").val("");
+                $("#errMsg").text("");
+            });
+
+            $("#fName").on("input", function(){
                 $("#errMsg").text("");
             });
         });
