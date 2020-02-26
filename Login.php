@@ -91,6 +91,7 @@
 		function displaySignUp(temp){
 			if(temp){
                 $("#lLgn").val("");
+                $("#errMsg").text("");
                 $("#lPass").val("");
 				$("#su").slideToggle(700);
 				$("#lg").slideToggle(700);
@@ -103,6 +104,7 @@
                 $("#pass").val("");
                 $("#nam").val("");
                 $("#confirmPass").val("");
+                $("#errMsg").text("");
 				$("#su").slideToggle(700);
 				$("#lg").slideToggle(700);
 				$("#lgBtn").text("Login");

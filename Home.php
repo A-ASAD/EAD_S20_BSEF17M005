@@ -36,9 +36,6 @@ if (isset($_REQUEST["Logout"])) {
     session_destroy();
     header("Location: Login.php");
 }
-    $pwd = 0;
-    if(isset($_REQUEST["id"]))
-        $pwd=$_REQUEST["id"];
 ?>
 
 <body>
@@ -76,12 +73,12 @@ if (isset($_REQUEST["Logout"])) {
     </div>
 
     <script>
+        var pwd=0;
         $(function(){
-            <?php if($pwd){?>
-                $.post("DB_API.php", "parent="+<?php echo $pwd;?>+"&action=getFolders", function(data, status) {
-            <?php }else{?>
-                $.post("DB_API.php", "parent=0&action=getFolders", function(data, status) {  //For loading folders at startup
-                <?php } ?>
+            loadFolders(0);
+        });
+        function loadFolders(dirId){
+                $.post("DB_API.php", "parent="+dirId+"&action=getFolders", function(data, status) {  //For loading folders at startup
                 if (data != "Error") {
                     let result = JSON.parse(data);
                     for (let folder in result) {
@@ -98,42 +95,41 @@ if (isset($_REQUEST["Logout"])) {
                 } else
                     $("#main").html("<div class='text-center pt-4'><b>Folder is Empty!</b></div>");
             });
-
-            $("#newFolder").click(function(){ //To Add a new Folder
-                let folderName=$("#fName").val();
-                if(folderName != ""){
-                    $.post("DB_API.php", "parent="+<?php echo $pwd;?>+"&name="+folderName+"&action=addFolder", function(data, status) {
-                    if (data != "Error"){
-                        $("#errMsg").html("<span class='text-success'>Folder Created!</span>");
-                        if($("#main div b").length)
-                            $("#main").html("");
-                        let fldr = $("<div>");
-                        fldr.html("<i class='fa fa-folder-open fa-2x text-secondary mr-1'></i>" + folderName);
-                        fldr.attr({
-                            "class": "mt-3 ml-3 rounded-lg px-2 folder",
-                            "onclick": "clickHandler(" + data + ")",
-                            "id": data
-                        });
-                        $("#main").append(fldr);
-                        $("#fName").val("");
-                    }
-                    else
-                        $("#errMsg").text("Folder Already Esixts!");
+        }
+        $("#newFolder").click(function(){ //To Add a new Folder
+            let folderName=$("#fName").val();
+            if(folderName != ""){
+                $.post("DB_API.php", "parent="+pwd+"&name="+folderName+"&action=addFolder", function(data, status) {
+                if (data != "Error"){
+                    $("#errMsg").html("<span class='text-success'>Folder Created!</span>");
+                    if($("#main div b").length)
+                        $("#main").html("");
+                    let fldr = $("<div>");
+                    fldr.html("<i class='fa fa-folder-open fa-2x text-secondary mr-1'></i>" + folderName);
+                    fldr.attr({
+                        "class": "mt-3 ml-3 rounded-lg px-2 folder",
+                        "onclick": "clickHandler(" + data + ")",
+                        "id": data
                     });
+                    $("#main").append(fldr);
+                    $("#fName").val("");
                 }
                 else
-                    $("#errMsg").text("Invalid Folder Name Entered!");
-                return false;
-            });
+                    $("#errMsg").text("Folder Already Esixts!");
+                });
+            }
+            else
+                $("#errMsg").text("Invalid Folder Name Entered!");
+            return false;
+        });
 
-            $("#modalBtn").click(function(){
-                $("#fName").val("");
-                $("#errMsg").text("");
-            });
+        $("#modalBtn").click(function(){
+            $("#fName").val("");
+            $("#errMsg").text("");
+        });
 
-            $("#fName").on("input", function(){
-                $("#errMsg").text("");
-            });
+        $("#fName").on("input", function(){
+            $("#errMsg").text("");
         });
         let clicks = 0; // controlling click & dbclick events
         function clickHandler(id) {
@@ -151,7 +147,9 @@ if (isset($_REQUEST["Logout"])) {
                             $("#" + id).toggleClass("selected");
                         }
                     } else {
-                        window.location.href = "Home.php?id=" + id;
+                        $("#main").html("");
+                        pwd=id; 
+                        loadFolders(id);
                     }
                     clicks = 0;
                 }, 100);
