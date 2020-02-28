@@ -4,8 +4,8 @@
         die("Error:".mysqli_connect_error());
 
     if($_REQUEST["action"] == "addFolder"){        //Add Folder
-        $query = "insert into folders(name, parent_id) select '".$_REQUEST["name"]."', ".$_REQUEST["parent"].
-        " where ( select name from folders where lower(name) = lower('".$_REQUEST["name"]."') and parent_id = '".$_REQUEST["parent"]."') is null";
+        $query = "insert into folder(folderName, parentFolderId) select '".$_REQUEST["name"]."', ".$_REQUEST["parent"].
+        " where ( select folderName from folder where lower(folderName) = lower('".$_REQUEST["name"]."') and parentFolderId = '".$_REQUEST["parent"]."') is null";
         $result = mysqli_query($conn, $query);
         if(mysqli_affected_rows($conn))
             echo mysqli_insert_id($conn);
@@ -13,7 +13,7 @@
             echo "Error";
     }
     else if($_REQUEST["action"] == "getFolders"){           // Get Folders
-        $query = "select id,name from folders where parent_id = ".$_REQUEST["parent"];
+        $query = "select folderId,folderName from folder where parentFolderId = ".$_REQUEST["parent"];
         $result = mysqli_query($conn, $query);
         if(mysqli_num_rows($result)){
             $result = mysqli_fetch_all($result);

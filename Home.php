@@ -11,6 +11,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
+        div {
+            -webkit-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
+        }
         .selected {
             color: white;
             background-color: #267aff;
@@ -40,10 +45,10 @@ if (isset($_REQUEST["Logout"])) {
 
 <body>
     <div class="container-fluid">
-        <div class="float-right mt-1">
+        <div id="topNav" class="row justify-content-center p-1 bg-secondary">
+            <button id="modalBtn" class="btn btn-success mr-1" data-toggle="modal" data-target="#nF"><b>+</b> New Folder</button>
             <form><input type="submit" name="Logout" value="Logout" class="btn btn-danger"></form>
         </div>
-        <div><button id="modalBtn" class="btn btn-success mt-1" data-toggle="modal" data-target="#nF"><b>+</b> New Folder</button></div>
         <div id="main">
 
         </div>
