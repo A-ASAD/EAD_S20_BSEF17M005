@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pass = new System.Windows.Forms.TextBox();
             this.updatePass = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -47,13 +47,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Enter New Password";
             // 
-            // textBox1
+            // pass
             // 
-            this.textBox1.Location = new System.Drawing.Point(73, 251);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(170, 26);
-            this.textBox1.TabIndex = 1;
+            this.pass.Location = new System.Drawing.Point(73, 251);
+            this.pass.Margin = new System.Windows.Forms.Padding(4);
+            this.pass.Name = "pass";
+            this.pass.Size = new System.Drawing.Size(170, 26);
+            this.pass.TabIndex = 1;
             // 
             // updatePass
             // 
@@ -61,7 +61,7 @@
             this.updatePass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updatePass.ForeColor = System.Drawing.SystemColors.Control;
             this.updatePass.Location = new System.Drawing.Point(108, 285);
-            this.updatePass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.updatePass.Margin = new System.Windows.Forms.Padding(4);
             this.updatePass.Name = "updatePass";
             this.updatePass.Size = new System.Drawing.Size(100, 34);
             this.updatePass.TabIndex = 2;
@@ -87,11 +87,13 @@
             this.ClientSize = new System.Drawing.Size(319, 361);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.updatePass);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.pass);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UMS_NewPassword";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UMS_NewPassword";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UMS_NewPassword_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -103,7 +105,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox pass;
         private System.Windows.Forms.Button updatePass;
         private System.Windows.Forms.PictureBox pictureBox1;
     }

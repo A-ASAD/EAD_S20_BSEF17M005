@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.errMsg = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,12 +37,11 @@
             this.cancel = new System.Windows.Forms.Button();
             this.passTxt = new System.Windows.Forms.TextBox();
             this.lgnTxt = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.mail = new System.Windows.Forms.TextBox();
             this.resetPass = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.errMsg = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -64,6 +64,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(300, 371);
             this.panel1.TabIndex = 0;
+            // 
+            // errMsg
+            // 
+            this.errMsg.AutoSize = true;
+            this.errMsg.ForeColor = System.Drawing.SystemColors.Control;
+            this.errMsg.Location = new System.Drawing.Point(87, 270);
+            this.errMsg.Name = "errMsg";
+            this.errMsg.Size = new System.Drawing.Size(174, 19);
+            this.errMsg.TabIndex = 6;
+            this.errMsg.Text = "Invalid Login or Password!";
+            this.errMsg.Visible = false;
             // 
             // pictureBox1
             // 
@@ -140,13 +151,13 @@
             this.lgnTxt.Size = new System.Drawing.Size(170, 26);
             this.lgnTxt.TabIndex = 0;
             // 
-            // textBox3
+            // mail
             // 
-            this.textBox3.Location = new System.Drawing.Point(375, 234);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(170, 26);
-            this.textBox3.TabIndex = 1;
+            this.mail.Location = new System.Drawing.Point(375, 234);
+            this.mail.Margin = new System.Windows.Forms.Padding(4);
+            this.mail.Name = "mail";
+            this.mail.Size = new System.Drawing.Size(170, 26);
+            this.mail.TabIndex = 1;
             // 
             // resetPass
             // 
@@ -194,17 +205,6 @@
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
-            // errMsg
-            // 
-            this.errMsg.AutoSize = true;
-            this.errMsg.ForeColor = System.Drawing.SystemColors.Control;
-            this.errMsg.Location = new System.Drawing.Point(87, 270);
-            this.errMsg.Name = "errMsg";
-            this.errMsg.Size = new System.Drawing.Size(174, 19);
-            this.errMsg.TabIndex = 6;
-            this.errMsg.Text = "Invalid Login or Password!";
-            this.errMsg.Visible = false;
-            // 
             // UMS_ExistingUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -214,7 +214,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.resetPass);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.mail);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -241,7 +241,7 @@
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.TextBox passTxt;
         private System.Windows.Forms.TextBox lgnTxt;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox mail;
         private System.Windows.Forms.Button resetPass;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
