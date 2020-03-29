@@ -38,7 +38,9 @@ namespace UMS
 
         private void Adm_Click(object sender, EventArgs e)
         {
-
+            UMS_AdminLogin admLgn = new UMS_AdminLogin();
+            admLgn.Show();
+            this.Hide();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

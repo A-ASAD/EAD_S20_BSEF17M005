@@ -52,6 +52,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="UMS_AdminHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UMS_AdminHome.Designer.cs">
+      <DependentUpon>UMS_AdminHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UMS_AdminLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UMS_AdminLogin.Designer.cs">
+      <DependentUpon>UMS_AdminLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="UMS_NewUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +98,12 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UMS_AdminHome.resx">
+      <DependentUpon>UMS_AdminHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UMS_AdminLogin.resx">
+      <DependentUpon>UMS_AdminLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UMS_NewUser.resx">
       <DependentUpon>UMS_NewUser.cs</DependentUpon>
@@ -145,6 +163,9 @@
       <Project>{9db9e68b-b820-4a1a-a136-3bd46ad8d3b1}</Project>
       <Name>UMS_BAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\admin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

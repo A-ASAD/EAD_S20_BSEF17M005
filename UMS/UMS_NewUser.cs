@@ -20,15 +20,22 @@ namespace UMS
         private string email;
         private string photo;
         private bool isClosed;
+        private bool isFromAdmin;
         public NewUser()
         {
             InitializeComponent();
             isNew = true;
             isClosed = true;
+            isFromAdmin = false;
         }
 
         private void NewUser_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (isFromAdmin)
+            {
+                Application.OpenForms["UMS_AdminHome"].Show();
+                return;
+            }
             if (isClosed && Application.OpenForms["Form1"] != null)
                 Application.OpenForms["Form1"].Show();
         }
@@ -131,9 +138,12 @@ namespace UMS
                   cricket.Checked, hockey.Checked, chess.Checked, choosePic.FileName))
                 {
                     isClosed = false;
-                    UMS_LoggedIn eu = new UMS_LoggedIn(lgn.Text.Trim());
+                    if (!isFromAdmin)
+                    {
+                        UMS_LoggedIn eu = new UMS_LoggedIn(lgn.Text.Trim());
+                        eu.Show();
+                    }
                     this.Close();
-                    eu.Show();
                 }
                 else
                     MessageBox.Show("User already exists", "Error");
@@ -152,9 +162,12 @@ namespace UMS
                     Gender, address.Text.Trim(), (int)age.Value, nic.Text.Trim(), dob.Value,
                     cricket.Checked, hockey.Checked, chess.Checked, Path.GetFileName(pictureBox1.ImageLocation), false, imageChanged);
                     isClosed = false;
-                    UMS_LoggedIn eu = new UMS_LoggedIn(lgn.Text.Trim());
+                    if (!isFromAdmin)
+                    {
+                        UMS_LoggedIn eu = new UMS_LoggedIn(lgn.Text.Trim());
+                        eu.Show();
+                    }
                     this.Close();
-                    eu.Show();
                 }
                 else
                 {
@@ -163,9 +176,12 @@ namespace UMS
                     cricket.Checked, hockey.Checked, chess.Checked, Path.GetFileName(pictureBox1.ImageLocation), true, imageChanged))
                     {
                         isClosed = false;
-                        UMS_LoggedIn eu = new UMS_LoggedIn(lgn.Text.Trim());
+                        if (!isFromAdmin)
+                        {
+                            UMS_LoggedIn eu = new UMS_LoggedIn(lgn.Text.Trim());
+                            eu.Show();
+                        }
                         this.Close();
-                        eu.Show();
                     }
                     else
                         MessageBox.Show("User already exists", "Error");
@@ -173,8 +189,9 @@ namespace UMS
             }
         }
 
-        public void LoadUserData(DataTable User)
+        public void LoadUserData(DataTable User, bool isAdmin)
         {
+            isFromAdmin = isAdmin;
             isNew = false;
             nam.Text = User.Rows[0]["Name"].ToString();
             lgn.Text = login = User.Rows[0]["Login"].ToString();

@@ -41,9 +41,9 @@ namespace UMS_BAL
             return uniqueName;
         }
 
-        public static DataTable LoadUser(String Login)
+        public static DataTable GetUser(String Login)
         {
-            DataTable user = UserDAO.LoadUser(Login);
+            DataTable user = UserDAO.GetUser(Login);
             return user;
         }
 
@@ -99,6 +99,14 @@ namespace UMS_BAL
         public static bool UpdatePassword(string Login, string Pass)
         {
             return UserDAO.UpdatePassword(Login, Pass);
+        }
+        public static bool ValidateAdmin(string Login, string Pass)
+        {
+            return UserDAO.ValidateAdmin(Login, Pass);
+        }
+        public static DataTable LoadAllUsers()
+        {
+            return UserDAO.LoadAllUsers();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace UMS_DAL
                 return com.ExecuteNonQuery()> 0;
             }
         }
-        public static DataTable LoadUser(String Login)
+        public static DataTable GetUser(String Login)
         {
             using (SqlConnection con = new SqlConnection(conString))
             {
@@ -99,6 +99,36 @@ namespace UMS_DAL
                                 Login = '{1}'", Pass, Login);
                 SqlCommand com = new SqlCommand(Query, con);
                 return com.ExecuteNonQuery() > 0;
+            }
+        }
+        public static bool ValidateAdmin(string Login, string Pass)
+        {
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                String Query = String.Format(@"select * from dbo.Admin where Login = '{0}' 
+                                and Password = '{1}'", Login, Pass);
+                SqlCommand com = new SqlCommand(Query, con);
+                SqlDataReader reader = com.ExecuteReader();
+                bool result = false;
+                if (reader.Read())
+                    result = true;
+                reader.Close();
+                return result;
+            }
+        }
+        public static DataTable LoadAllUsers()
+        {
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                String Query = "select * from dbo.Users";
+                SqlCommand com = new SqlCommand(Query, con);
+                SqlDataReader reader = com.ExecuteReader();
+                DataTable user = new DataTable();
+                user.Load(reader);
+                reader.Close();
+                return user;
             }
         }
     }

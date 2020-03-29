@@ -18,7 +18,7 @@ namespace UMS
         public UMS_LoggedIn(string Login)
         {
             InitializeComponent();
-            User = UserBO.LoadUser(Login);
+            User = UserBO.GetUser(Login);
             isClosed = true;
         }
 
@@ -44,7 +44,7 @@ namespace UMS
         {
             isClosed = false;
             NewUser edit = new NewUser();
-            edit.LoadUserData(User);
+            edit.LoadUserData(User, false);
             this.Close();
             edit.Show();
         }
