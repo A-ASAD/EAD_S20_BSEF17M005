@@ -33,6 +33,7 @@ namespace UMS
         {
             if (isFromAdmin)
             {
+                ((UMS_AdminHome)Application.OpenForms["UMS_AdminHome"]).LoadAllUsers();
                 Application.OpenForms["UMS_AdminHome"].Show();
                 return;
             }

@@ -266,6 +266,7 @@
             this.dob.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Bold);
             this.dob.Location = new System.Drawing.Point(112, 407);
             this.dob.Name = "dob";
+            this.dob.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dob.Size = new System.Drawing.Size(244, 26);
             this.dob.TabIndex = 9;
             // 
