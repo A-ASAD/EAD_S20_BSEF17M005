@@ -46,9 +46,8 @@ namespace DAL
                 string query = String.Format(@"insert into folder(folderName, parentFolderId) select '{0}', {1} where ( select folderName 
                 from folder where lower(folderName) = lower('{0}') and parentFolderId = {1}) is null", Name, Parent);
                 MySqlCommand com = new MySqlCommand(query, con);
-                int result = (int)com.ExecuteNonQuery();
-                if (result != 0)
-                    return result+"";
+                if ((int)com.ExecuteNonQuery() != 0)
+                    return com.LastInsertedId+"";
                 return "Error";
             }
         }
