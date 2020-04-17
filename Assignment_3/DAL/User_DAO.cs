@@ -9,7 +9,7 @@ namespace DAL
 {
     public static class UserDAO
     {
-        private static string conString = "server=localhost; uid=root; pwd=; database=mydb";
+        private static string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
 
         public static string ValidateUser(string Login, string Pass)
         {
