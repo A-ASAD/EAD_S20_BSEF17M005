@@ -10,12 +10,11 @@ namespace DAL
 {
     public static class UserDAO
     {
-        private static string conString = @"Data Source=localhost\SQLEXPRESS; Initial Catalog=mydb;
-                        User Id=sa; Password=asad226646";
-
+        private static string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
+        
         public static string ValidateUser(string Login, string Pass)
         {
-            using(SqlConnection con = new SqlConnection(conString))
+            using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
                 string query = String.Format(@"select name from dbo.[user] where login = '{0}' and password = '{1}'",Login, Pass);
