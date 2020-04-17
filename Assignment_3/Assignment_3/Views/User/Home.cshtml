@@ -94,8 +94,12 @@
                         });
                         $("#main").append(fldr);
                     }
-                } else
-                    $("#main").html("<div class='text-center pt-4'><b>Folder is Empty!</b></div>");
+                } else {
+                    if (pwd == 0)
+                        $("#main").html("<div class='text-center pt-4'><b>No folders added yet!</b></div>");
+                    else
+                        $("#main").html("<div class='text-center pt-4'><b>Folder is Empty!</b></div>");
+                }
             });
         }
         $("#newFolder").click(function () { //To Add a new Folder
