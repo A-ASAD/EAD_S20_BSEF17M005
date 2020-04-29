@@ -148,7 +148,7 @@
                         $("#errMsg").text("Error!! Both passwords must match!");
                     }
                     else {
-                        $.post('@Url.Content("~/User/AddUser")', "Login=" + lgn + "&Pass=" + pass + "&Name=" + name + "&CPass=" + cPass, function (data, status) {
+                        $.post('https://localhost:44358/api/User/AddUser', "Login=" + lgn + "&Pass=" + pass + "&Name=" + name + "&CPass=" + cPass, function (data, status) {
                             if (data != "Error") {
                                 $("#lgn").val("");
                                 $("#pass").val("");

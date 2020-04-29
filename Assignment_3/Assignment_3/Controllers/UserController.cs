@@ -9,7 +9,6 @@ namespace Assignment_3.Controllers
 {
     public class UserController : Controller
     {
-        
         public ActionResult Login()
         {
             Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -19,43 +18,28 @@ namespace Assignment_3.Controllers
         }
         public ActionResult Home()
         {
+            if(Session["user"] == null)
+                return View("Login");
             Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             Response.AddHeader("Pragma", "no-cache");
             Response.AddHeader("Expires", "0");
+            ViewData["token"] = Session["user"];
             return View();
         }
 
-        public string ValidateUser(string Login, string Pass)
+        [HttpPost]
+        public JsonResult ValidateUser(string Login, string Pass)
         {
             if (Login.Trim() == "" || Pass.Trim() == "")
-                return "Invalid Login or Password!";
+                return Json("Invalid Login or Password!", JsonRequestBehavior.AllowGet);
             string user = UserBAO.ValidateUser(Login, Pass);
             if(user != "Error")
-                Session["user"] = user;
-            return user;
+            {
+                Session["user"] = TokenHelper.TokenHelper.GetToken(user);
+            }
+            return Json(user, JsonRequestBehavior.AllowGet);
         }
-
-        public string AddUser(string Name, string Login, string Pass, string CPass)
-        {
-            if (Login.Trim() == "" || Pass.Trim() == "" || Name.Trim() == "" || CPass.Trim() == "")
-                return "Invalid Input!";
-            if (Pass != CPass)
-                return "Both Passwords must match!";
-            return UserBAO.AddUser(Login, Pass, Name);
-        }
-
-        public string AddFolder(string Name, string Parent)
-        {
-            if (Name.Trim() == "")
-                return "Invalid Name!";
-            return UserBAO.AddFolder(Name, Parent);
-        }
-
-        public string GetFolders(string Parent)
-        {
-            return UserBAO.GetFolders(Parent);
-        }
-
+        [HttpPost]
         public ActionResult Logout()
         {
             Session.Abandon();
