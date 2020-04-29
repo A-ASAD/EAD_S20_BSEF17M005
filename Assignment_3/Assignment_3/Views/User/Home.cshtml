@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+    <style>
+        div {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .selected {
+            color: white;
+            background-color: #267aff;
+        }
+
+        .selected i {
+            color: white !important;
+        }
+
+        .folder {
+            border: 2px solid black;
+            width: 150px;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+    }
+
+    @{ 
+        if (Session["user"] == null)
+        {
+            Response.Redirect(Url.Content("~/User/Login"));
+        }
+    }
+    
+    <div class="container-fluid">
+        <div id="topNav" class="row justify-content-center p-1 bg-secondary">
+            <button id="modalBtn" class="btn btn-success mr-1" data-toggle="modal" data-target="#nF"><b>+</b> New Folder</button>
+            <form method="post" action='@Url.Content("~/User/Logout")'><input type="submit" name="Logout" value="Logout" class="btn btn-danger"></form>
+        </div>
+        <div id="main">
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="nF">
+        <!--Modal for creating new folder name-->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Folder</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="frm">
+                        <div class="form-group">
+                            <label for="fName">Name: </label>
+                            <input class="form-control" type="text" id="fName">
+                        </div>
+                    </form>
+                    <div id="errMsg" class="text-danger"></div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <input type="submit" form="frm" value="Create Folder" class="btn btn-success" id="newFolder">
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section script{
+    <script>
+        window.token = '@ViewData["token"]';
+        var pwd = 0;
+        $(function () {
+            loadFolders(0);
+        });
+        function loadFolders(dirId) {
+            var ajaxData = {
+                type: 'POST',
+                data: { 'Parent': dirId },
+                url: 'https://localhost:44358/api/User/GetFolders',
+                headers: { 'Authorization': 'Bearer ' + window.token },
+                success: function (res) {  //For loading folders at startup
+                    if (res != "Error") {
+                        let result = JSON.parse(res);
+                        for (let folder in result) {
+                            let fldr = $("<div>");
+                            fldr.html("<i class='fa fa-folder-open fa-2x text-secondary mr-1'></i>" + result[folder][1]);
+                            fldr.attr({
+                                "class": "mt-3 ml-3 rounded-lg px-2 folder",
+                                "onclick": "clickHandler(" + result[folder][0] + ")",
+                                "id": result[folder][0],
+                                "title": result[folder][1]
+                            });
+                            $("#main").append(fldr);
+                        }
+                    } else {
+                        if (pwd == 0)
+                            $("#main").html("<div class='text-center pt-4'><b>No folders added yet!</b></div>");
+                        else
+                            $("#main").html("<div class='text-center pt-4'><b>Folder is Empty!</b></div>");
+                    }
+                },
+                error: function (res) { alert(res.responseText); }
+            };
+            $.ajax(ajaxData);
+        }
+        $("#newFolder").click(function () { //To Add a new Folder
+            let folderName = $("#fName").val();
+            if (folderName != "") {
+                var ajaxData = {
+                    type: 'POST',
+                    data: { 'Parent': pwd, 'Name': folderName },
+                    url: 'https://localhost:44358/api/User/AddFolder',
+                    headers: { 'Authorization': 'Bearer ' + window.token },
+                    success: function (res) {
+                        if (res != "Error") {
+                            $("#errMsg").html("<span class='text-success'>Folder Created!</span>");
+                            if ($("#main div b").length)
+                                $("#main").html("");
+                            let fldr = $("<div>");
+                            fldr.html("<i class='fa fa-folder-open fa-2x text-secondary mr-1'></i>" + folderName);
+                            fldr.attr({
+                                "class": "mt-3 ml-3 rounded-lg px-2 folder",
+                                "onclick": "clickHandler(" + res + ")",
+                                "id": res
+                            });
+                            $("#main").append(fldr);
+                            $("#fName").val("");
+                        }
+                        else
+                            $("#errMsg").text("Folder Already Esixts!");
+                    },
+                    error: function (res) { alert(res.responseText); }
+                }
+                $.ajax(ajaxData);
+            }
+            else
+                $("#errMsg").text("Invalid Folder Name Entered!");
+            return false;
+        });
+
+        $("#modalBtn").click(function () {
+            $("#fName").val("");
+            $("#errMsg").text("");
+        });
+
+        $("#fName").on("input", function () {
+            $("#errMsg").text("");
+        });
+        let clicks = 0; // controlling click & dbclick events
+        function clickHandler(id) {
+            clicks++;
+            if (clicks == 1) {
+                setTimeout(function () {
+                    if (clicks == 1) {
+                        if ($("#" + id).hasClass("selected"))
+                            $("#" + id).toggleClass("selected");
+                        else {
+                            let folders = $("#main > div");
+                            for (let i = 0; i < folders.length; i++) {
+                                folders[i].classList.remove("selected");
+                            }
+                            $("#" + id).toggleClass("selected");
+                        }
+                    } else {
+                        $("#main").html("");
+                        pwd = id;
+                        loadFolders(id);
+                    }
+                    clicks = 0;
+                }, 100);
+            }
+        }
+    </script>
+    }
